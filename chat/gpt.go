@@ -31,13 +31,15 @@ func (s *SimpleGptChat) toChatMsg(msg db.Msg) openai.ChatCompletionMessage {
 	}
 }
 
+
 func (s *SimpleGptChat) getModel(userID string) string {
 	if model, err := db.GetModel(userID, config.Bot_Type_Gpt); err == nil && model != "" {
 		return model
 	} else if model = os.Getenv("gptModel"); model != "" {
 		return model
+
 	}
-	return "gpt-3.5-turbo"
+	return "gpt-4o"
 }
 
 func (s *SimpleGptChat) chat(userID, msg string) string {
